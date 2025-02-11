@@ -1,10 +1,19 @@
 # estatística-análise-exploratória
 
 ## UV setup
-run `uv sync` to install dependencies
-run `uv run src/main.py` to run the software
+```bash
+  # to install dependencies
+  uv sync
+
+  # to run
+  uv run src/main.py
+```
 
 ## PIP setup
+```bash
+  # to install dependencies
+  pip install -r requirements.txt
 
-run `pip install -r requirements.txt` to install dependencies
-run `python src/main.py` to run the software
+  # to run
+  python src/main.py
+```

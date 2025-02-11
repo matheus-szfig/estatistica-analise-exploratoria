@@ -1,1 +1,1 @@
-# estat-stica-an-lise-explorat-ria
+# estatística-análise-exploratória

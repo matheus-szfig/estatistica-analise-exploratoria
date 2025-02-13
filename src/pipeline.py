@@ -1,4 +1,4 @@
 from pandas import DataFrame
 
-def run_pipeline (df: DataFrame):
+def pipeline_run (df: DataFrame):
   return df

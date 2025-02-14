@@ -68,6 +68,8 @@ def pipeline_pre_process (df: DataFrame):
   df = remove_outliers_by_col(df, 'HORAS VOADAS')
   df = remove_outliers_by_col(df, 'PASSAGEIROS PAGOS')
   df = remove_outliers_by_col(df, 'PASSAGEIROS GRÁTIS')
+
+  df['PASSAGEIROS TOTAL'] = df.apply(lambda row: (row['PASSAGEIROS PAGOS'] + row['PASSAGEIROS GRÁTIS']), axis=1)
   
   return df
 

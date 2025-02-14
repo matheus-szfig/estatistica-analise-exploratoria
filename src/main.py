@@ -1,6 +1,6 @@
 from dataset import get_data_frame
 from pipeline import pipeline_pre_process, get_descritive_values, get_correlation
-from plot import plot_scatter_hour_vs_litros, plot_box_psg, plot_top_states
+from plot import plot_scatter_hour_vs_litros, plot_box_psg, plot_top_states, plot_scatter_psg_luggage
 
 def main():
     df = get_data_frame()
@@ -15,6 +15,7 @@ def main():
     get_correlation(df, 'COMBUSTÍVEL (LITROS)', 'HORAS VOADAS')
 
     plot_box_psg(df)
+    plot_scatter_psg_luggage(df)
     plot_scatter_hour_vs_litros(df)
     plot_top_states(df)
     

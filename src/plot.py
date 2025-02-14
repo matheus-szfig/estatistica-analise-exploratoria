@@ -5,11 +5,22 @@ from pandas import DataFrame
 def plot_scatter_hour_vs_litros(df: DataFrame):
     
     plt.figure(figsize=(16, 9))
-    
+
     plt.scatter(x=df['COMBUSTÍVEL (LITROS)'], y=df['HORAS VOADAS'], alpha=0.1)
     
     plt.xlabel('COMBUSTÍVEL (LITROS)')
     plt.ylabel('HORAS VOADAS')
+    
+    plt.show()
+
+def plot_scatter_psg_luggage(df: DataFrame):
+    
+    plt.figure(figsize=(16, 9))
+    
+    plt.scatter(x=df['PASSAGEIROS TOTAL'], y=df['BAGAGEM (KG)'], alpha=0.1)
+    
+    plt.xlabel('PASSAGEIROS (PAGOS + GRÁTIS)')
+    plt.ylabel('BAGAGEM (KG)')
     
     plt.show()
 

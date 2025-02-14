@@ -1,32 +1,23 @@
 from dataset import get_data_frame
-from pipeline import pipeline_pre_process
-from plot import plot_scatter_hour_vs_litros
+from pipeline import pipeline_pre_process, get_descritive_values, get_correlation
+from plot import plot_scatter_hour_vs_litros, plot_box_psg, plot_top_airports
 
 def main():
     df = get_data_frame()
     df = pipeline_pre_process(df)
 
+    desc_psg_free = get_descritive_values(df, 'PASSAGEIROS PAGOS')
+    desc_psg_paid = get_descritive_values(df, 'PASSAGEIROS GRÁTIS')
+    desc_fuel = get_descritive_values(df, 'COMBUSTÍVEL (LITROS)')
+    desc_hours = get_descritive_values(df, 'HORAS VOADAS')
+
+    corr_paid_free = get_correlation(df, 'PASSAGEIROS GRÁTIS', 'PASSAGEIROS PAGOS')
+    corr_fuel_hour = get_correlation(df, 'COMBUSTÍVEL (LITROS)', 'HORAS VOADAS')
+
+    plot_box_psg(df)
     plot_scatter_hour_vs_litros(df)
-    # mean = df['Valor de Venda'].mean()
-    # median = df['Valor de Venda'].median()
-    # mode = df['Valor de Venda'].mode()
-
-    # variance = df['Valor de Venda'].var()
-
-    # standard_deviation = df['Valor de Venda'].std()
-    # var_coef = (standard_deviation / mean) / 100
-
-    # quartile25 = df['Valor de Venda'].quantile(0.25)
-    # quartile50 = df['Valor de Venda'].quantile(0.5)
-    # quartile75 = df['Valor de Venda'].quantile(0.75)
-
-    # max = df['Valor de Venda'].max()
-    # min = df['Valor de Venda'].min()
-
-    # corr = df[['Valor de Venda', 'Data da Coleta']].corr(method='pearson').loc['Valor de Venda', 'Data da Coleta']
-
-    # df = pipeline_run(df)
-    # df = plot_scatter_date_price(df)
+    plot_top_airports(df)
+    
 
 if __name__ == "__main__":
     main()

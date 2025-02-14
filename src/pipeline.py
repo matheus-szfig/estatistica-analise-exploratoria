@@ -14,7 +14,30 @@ def remove_outliers_by_col(df, col, factor=1.5):
 
 def pipeline_pre_process (df: DataFrame):
 
-  df.drop(['EMPRESA (SIGLA)', 'ASK', 'RPK', 'ATK', 'RTK'], axis=1, inplace=True)
+  df.drop([
+    'EMPRESA (SIGLA)',
+    'ASK',
+    'RPK',
+    'ATK',
+    'RTK',
+    'EMPRESA (NOME)',
+    'EMPRESA (NACIONALIDADE)',
+    'AEROPORTO DE ORIGEM (SIGLA)',
+    'AEROPORTO DE ORIGEM (NOME)',
+    'AEROPORTO DE ORIGEM (REGIÃO)',
+    'AEROPORTO DE ORIGEM (PAÍS)',
+    'AEROPORTO DE ORIGEM (CONTINENTE)',
+    'AEROPORTO DE DESTINO (SIGLA)',
+    'AEROPORTO DE DESTINO (NOME)',
+    'AEROPORTO DE DESTINO (REGIÃO)',
+    'AEROPORTO DE DESTINO (PAÍS)',
+    'AEROPORTO DE DESTINO (CONTINENTE)',
+    'NATUREZA',
+    'GRUPO DE VOO',
+    'CARGA PAGA (KG)',
+    'CARGA GRÁTIS (KG)',
+    'CORREIO (KG)',
+  ], axis=1, inplace=True)
   df.dropna(axis=0, inplace=True)
 
   df['ANO'] = pd.to_numeric(df['ANO'], downcast='integer')
@@ -41,21 +64,36 @@ def pipeline_pre_process (df: DataFrame):
   return df
 
 def get_descritive_values (df: DataFrame, col:str):
+
+  print (col, '-', 'metrics')
+
   mean = df[col].mean()
+  print ("mean", mean)
+  
   median = df[col].median()
+  print ("median", mean)
   mode = df[col].mode()
+  print ("mode", mode)
 
   variance = df[col].var()
+  print ("variance", variance)
 
   standard_deviation = df[col].std()
+  print ("standard_deviation", standard_deviation)
   var_coef = (standard_deviation / mean) / 100
+  print ("var_coef", var_coef)
 
   quartile25 = df[col].quantile(0.25)
+  print ("quartile25", quartile25)
   quartile50 = df[col].quantile(0.5)
+  print ("quartile50", quartile50)
   quartile75 = df[col].quantile(0.75)
+  print ("quartile75", quartile75)
 
   max = df[col].max()
+  print ("max", max)
   min = df[col].min()
+  print ("min", min)
 
   return {
     "mean": mean,
@@ -74,4 +112,5 @@ def get_descritive_values (df: DataFrame, col:str):
 def get_correlation (df: DataFrame, col:str, corr_col:str):
 
   corr = df[[col, corr_col]].corr(method='pearson').loc[col, corr_col]
+  print(col, 'x', corr_col, 'correlation:', corr)
   return corr

@@ -3,17 +3,21 @@ from pandas import DataFrame
 
 def remove_outliers_by_col(df, col, factor=1.5):
 
+  # calculo da relação interquartil (iqr)
   q1 = df[col].quantile(0.25)
   q3 = df[col].quantile(0.75)
   iqr = q3 - q1
   
+  # definição dos limites inferiores e superiores
   lower_bound = q1 - (factor * iqr)
   upper_bound = q3 + (factor * iqr)
   
+  # remoção do dataset
   return df[(df[col] >= lower_bound) & (df[col] <= upper_bound)]
 
 def pipeline_pre_process (df: DataFrame):
 
+  # remoção de colunas não utilizadas
   df.drop([
     'EMPRESA (SIGLA)',
     'ASK',
@@ -40,9 +44,11 @@ def pipeline_pre_process (df: DataFrame):
   ], axis=1, inplace=True)
   df.dropna(axis=0, inplace=True)
 
+  # ajuste do formato de inteiros
   df['ANO'] = pd.to_numeric(df['ANO'], downcast='integer')
   df['MÊS'] = pd.to_numeric(df['MÊS'], downcast='integer')
 
+  # ajuste do formato de floats
   df.replace({
     'HORAS VOADAS': { ',': '.' },
     'COMBUSTÍVEL (LITROS)': { ',': '.' }
@@ -52,10 +58,12 @@ def pipeline_pre_process (df: DataFrame):
   df['PASSAGEIROS PAGOS'] = pd.to_numeric(df['PASSAGEIROS PAGOS'])
   df['PASSAGEIROS GRÁTIS'] = pd.to_numeric(df['PASSAGEIROS GRÁTIS'])
 
+  # remoção de valores não realisticos
   df = df.loc[df['HORAS VOADAS'] > 0.5]
   df = df.loc[df['COMBUSTÍVEL (LITROS)'] > 1.0]
   df = df.loc[(df['PASSAGEIROS PAGOS'] + df['PASSAGEIROS GRÁTIS']) > 1.0]
 
+  # remoção de outliers
   df = remove_outliers_by_col(df, 'COMBUSTÍVEL (LITROS)')
   df = remove_outliers_by_col(df, 'HORAS VOADAS')
   df = remove_outliers_by_col(df, 'PASSAGEIROS PAGOS')

@@ -7,8 +7,7 @@ def get_data_frame () -> DataFrame:
   dataset_path = path.join(getcwd(), 'datasets/dados_aereos.csv')
   dataset_path = path.normpath(dataset_path)
 
-  df = read_csv(dataset_path, sep=';')
-  print(df)
+  df = read_csv(dataset_path, sep=';', encoding='utf-8')
   
   # df.rename(columns={ 'Estado - Sigla': 'Estado', 'Regiao - Sigla': 'Regiao' }, inplace=True)
   

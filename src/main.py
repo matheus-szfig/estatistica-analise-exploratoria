@@ -1,10 +1,12 @@
 from dataset import get_data_frame
-from pipeline import pipeline_run
-from plot import plot_scatter_date_price
+from pipeline import pipeline_pre_process
+from plot import plot_scatter_hour_vs_litros
 
 def main():
     df = get_data_frame()
+    df = pipeline_pre_process(df)
 
+    plot_scatter_hour_vs_litros(df)
     # mean = df['Valor de Venda'].mean()
     # median = df['Valor de Venda'].median()
     # mode = df['Valor de Venda'].mode()
@@ -23,7 +25,7 @@ def main():
 
     # corr = df[['Valor de Venda', 'Data da Coleta']].corr(method='pearson').loc['Valor de Venda', 'Data da Coleta']
 
-    # # df = pipeline_run(df)
+    # df = pipeline_run(df)
     # df = plot_scatter_date_price(df)
 
 if __name__ == "__main__":
